@@ -24,6 +24,26 @@ try {
           `The item ${item.Name} has negative values and negative values are not allowed! Please check the item values.\n`,
         );
       }
+      if (!item.Price) {
+        throw new Error(
+          `The Price propertie of the item ${item.Name} is missing.\n`,
+        );
+      }
+
+      if (!item.Quantity) {
+        throw new Error(
+          `The Quantity propertie of the item ${item.Name} is missing.\n`,
+        );
+      }
+
+      if (item.Price !== parseInt(item.Price)) {
+        throw new Error(`The item ${item.Name} Price is not an integer.\n`);
+      }
+
+      if (item.Quantity !== parseInt(item.Quantity)) {
+        throw new Error(`The item ${item.Name} Quantity is not an integer.\n`);
+      }
+
       sum += item.Quantity * item.Price;
       // console.log(
       //   `Quantity = ${item.Quantity} * Price= ${

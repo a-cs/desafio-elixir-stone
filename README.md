@@ -56,6 +56,20 @@ yarn dev:server
 
   Please delete the duplicate from the email list.
   ```
+- [x] Propriedades faltando na lista de itens:
+  ```
+  The Price propertie of the item ${item.Name} is missing.
+  ```
+  ```
+  The Quantity propertie of the item ${item.Name} is missing.
+  ```
+- [x] Valores não inteiros no Preço ou Quantidade na lista de itens:
+  ```
+  The item ${item.Name} Price is not an integer.
+  ```
+  ```
+  The item ${item.Name} Quantity is not an integer.
+  ```
 ### Formula utilizada para garantir a divisão dos valores em partes iguais e sem valores flutuantes:
 
 ![Formula](https://user-images.githubusercontent.com/63657280/107700970-01251100-6c97-11eb-9ca4-41220df959df.JPG)
