@@ -20,6 +20,7 @@
     ],
     "rules": {
       "no-use-before-define": "off",
+      "no-inner-declarations": 0,
       "@typescript-eslint/no-use-before-define": [
         "error"
       ],
@@ -27,7 +28,8 @@
         "error",
         "ignorePackages",
         {
-          "ts": "never"
+          "ts": "never",
+          "json": "never"
         }
       ],
       "prettier/prettier": "error"
