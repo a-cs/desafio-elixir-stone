@@ -1,18 +1,17 @@
 [
   {
-    "itemName":"item1",
-    "itemQuantity":1,
-    "itemPrice":2
+    "Name": "item1",
+    "Quantity": 1,
+    "Price": 2
   },
-
-  {"itemName":"item2",
-    "itemQuantity":3,
-    "itemPrice":4
+  {
+    "Name": "item2",
+    "Quantity": 3,
+    "Price": 4
   },
-
-  {"itemName":"item3",
-    "itemQuantity":5,
-    "itemPrice":6
+  {
+    "Name": "item3",
+    "Quantity": 5,
+    "Price": 6
   }
-
 ]

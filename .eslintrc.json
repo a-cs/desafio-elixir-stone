@@ -21,6 +21,10 @@
     "rules": {
       "no-use-before-define": "off",
       "no-inner-declarations": 0,
+      "no-plusplus": "off",
+      "no-shadow": "off",
+      "no-console":"off",
+      "radix":"off",
       "@typescript-eslint/no-use-before-define": [
         "error"
       ],

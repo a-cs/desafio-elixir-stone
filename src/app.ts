@@ -2,40 +2,37 @@ import emails from '../Files/emails';
 import items from '../Files/items';
 
 interface Items {
-  itemName: string;
-  itemQuantity: number;
-  itemPrice: number;
+  Name: string;
+  Quantity: number;
+  Price: number;
 }
 
-let isEmptyEmails = false;
-let isEmptyItems = false;
+try {
+  if (emails.length === 0) {
+    throw new Error(`The email list is empty! Please fill the email list.\n`);
+  }
 
-if (emails.length > 0) {
-  isEmptyEmails = false;
-} else {
-  isEmptyEmails = true;
-  console.log('Warning: Empty Email list!');
-}
+  if (items.length === 0) {
+    throw new Error(`The items list is empty! Please fill the items list.\n`);
+  }
 
-if (items.length > 0) {
-  isEmptyItems = false;
-} else {
-  isEmptyItems = true;
-  console.log('Warning: Empty Item list!');
-}
-
-if (!isEmptyEmails && !isEmptyItems) {
-  const GetTotalValue = (items: Items): number => {
+  const GetTotalValue = (items: [Items]): number => {
     let sum = 0;
     items.map((item: Items) => {
-      sum += item.itemQuantity * item.itemPrice;
-      console.log(
-        `Quantity = ${item.itemQuantity} * Price= ${
-          item.itemPrice
-        } cents, Sum = ${
-          item.itemQuantity * item.itemPrice
-        } cents, Accumulated Sum = ${sum} cents`,
-      );
+      if (item.Quantity < 0 || item.Price < 0) {
+        throw new Error(
+          `The item ${item.Name} has negative values and negative values are not allowed! Please check the item values.\n`,
+        );
+      }
+      sum += item.Quantity * item.Price;
+      // console.log(
+      //   `Quantity = ${item.Quantity} * Price= ${
+      //     item.Price
+      //   } cents, Sum = ${
+      //     item.Quantity * item.Price
+      //   } cents, Accumulated Sum = ${sum} cents`,
+      // );
+
       return sum;
     });
     return sum;
@@ -43,16 +40,26 @@ if (!isEmptyEmails && !isEmptyItems) {
 
   const totalValue = GetTotalValue(items);
 
-  function shuffleArray(array) {
+  const shuffleArray = (array: string[]) => {
     const array2 = array.slice(0);
     for (let i = array2.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array2[i], array2[j]] = [array2[j], array2[i]];
     }
     return array2;
-  }
+  };
 
-  const GetPricePerEmail = (emails, totalValue) => {
+  const GetPricePerEmail = (emails: [string], totalValue: number) => {
+    const duplicatedEmails = emails.filter((value, index, self) => {
+      return self.indexOf(value) !== index;
+    });
+
+    if (duplicatedEmails.length > 0) {
+      throw new Error(
+        `The following emails are duplicated:\n${duplicatedEmails}\nPlease delete the duplicate from the email list.\n`,
+      );
+    }
+
     const emailsQuantity: number = emails.length;
     const y = parseInt(totalValue / emailsQuantity);
     const x = emailsQuantity * (y + 1) - totalValue;
@@ -73,10 +80,13 @@ if (!isEmptyEmails && !isEmptyItems) {
       const price = index < x ? y : y + 1;
       answer.set(email, price);
       // console.log(email, index, price);
+      return answer;
     });
 
     return answer;
   };
 
   console.log(GetPricePerEmail(emails, totalValue));
+} catch (error) {
+  console.log(error);
 }
